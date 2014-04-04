@@ -65,6 +65,12 @@ foreach my $module (split(/\n/, load_file("$base_dir/install/perl-modules.txt"))
 	}
 }
 
+# copy sample config to real one, but ONLY IF file doesn't already exist
+# (so user can upgrade without wiping the config)
+if (!(-e "$base_dir/conf/mirror-config.xml")) {
+	exec_shell( "cp $base_dir/conf/mirror-config-sample.xml $base_dir/conf/mirror-config.xml" );
+}
+
 exec_shell( "chmod 775 $base_dir/bin/*" );
 
 # init.d script (+perms)

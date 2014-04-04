@@ -18,8 +18,6 @@ use POE;
 
 $| = 1;
 
-$SIG{'__DIE__'} = sub { Carp::cluck("Stack Trace: "); };
-
 # figure out our base dir and cd into it
 my $base_dir = dirname(dirname(abs_path($0)));
 chdir( $base_dir );
@@ -51,7 +49,11 @@ foreach my $key (keys %$cmdline_args) {
 	$config->{Common}->{$key} = $cmdline_args->{$key};
 }
 
-if (!$cmdline_args->{debug}) {
+if ($cmdline_args->{debug}) {
+	# debug mode, catch all crashes and emit stack trace
+	$SIG{'__DIE__'} = sub { Carp::cluck("Stack Trace: "); };
+}
+else {
 	# not running in cmd-line debug mode, so fork daemon process, write pid file
 	become_daemon();
 	
