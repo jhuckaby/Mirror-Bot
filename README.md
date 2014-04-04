@@ -6,11 +6,11 @@
 
 To install MirrorBot, execute this command as root on your server:
 
-    curl -s "http://pixlcore.com/software/mirrorbot/install-latest-stable.txt" | bash
+	curl -s "http://pixlcore.com/software/mirrorbot/install-latest-stable.txt" | bash
 
 Or, if you don't have curl, you can use wget:
 
-    wget -O - "http://pixlcore.com/software/mirrorbot/install-latest-stable.txt" | bash
+	wget -O - "http://pixlcore.com/software/mirrorbot/install-latest-stable.txt" | bash
 
 This will install the latest stable version of MirrorBot into the `/opt/mirrorbot/` directory.  Change the word "stable" to "dev" in the above command to install the development branch.  This single command installer should work fine on any modern Linux RedHat (RHEL, Fedora, CentOS) or Debian (Ubuntu) operating system.  Basically, anything that has "yum" or "apt-get" should be happy.  See the [Manual Installation Instructions](#manual-installation) for other OSes, or if the single-command installer doesn't work for you.
 
@@ -285,13 +285,13 @@ If the single-command auto-install doesn't work on your server, you can manually
 Then, grab the source tarball from GitHub and decompress into the `/opt` directory of your server:
 
 ```bash
-mkdir -p /opt
-cd /opt
-wget -O mirrorbot.tar.gz "https://github.com/jhuckaby/Mirror-Bot/tarball/master"
-tar zxf mirrorbot.tar.gz
-rm mirrorbot.tar.gz
-mv jhuckaby-Mirror-Bot-* mirrorbot
-chmod 755 mirrorbot/bin/*.*
+	mkdir -p /opt
+	cd /opt
+	wget -O mirrorbot.tar.gz "https://github.com/jhuckaby/Mirror-Bot/tarball/master"
+	tar zxf mirrorbot.tar.gz
+	rm mirrorbot.tar.gz
+	mv jhuckaby-Mirror-Bot-* mirrorbot
+	chmod 755 mirrorbot/bin/*.*
 ```
 
 Make sure the bot has permission to write to its PID and log files (see [Configuration](#configuration) for locations of files).  Often `/var/log` and `/var/run` have restrictive permissions on Unix, and the bot needs to write to both (by default -- you can change the location of its log and PID files).
@@ -301,7 +301,7 @@ Make sure the bot has permission to write to its PID and log files (see [Configu
 If you are having trouble getting the bot to start, try running it in debug mode.  This will prevent the daemon fork, and it will run as a simple command-line script, and dump out debugging information to the console.  You can either set the `<debug>` element to "1" in your config file, or pass it as a command-line argument:
 
 ```bash
-/opt/mirrorbot/bin/mirrorbotd.pl --debug 1
+	/opt/mirrorbot/bin/mirrorbotd.pl --debug 1
 ```
 
 ## Open Source
@@ -323,20 +323,8 @@ SimpleBot relies on the following non-core Perl modules, which are automatically
 
 ### MIT License
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
