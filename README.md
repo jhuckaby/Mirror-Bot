@@ -304,6 +304,12 @@ If you are having trouble getting the bot to start, try running it in debug mode
 /opt/mirrorbot/bin/mirrorbotd.pl --debug 1
 ```
 
+## Open Source
+
+MirrorBot is open source, and available on GitHub:
+
+[https://github.com/jhuckaby/Mirror-Bot]
+
 ## Copyright and Legal
 
 MirrorBot is copyright (c) 2011 - 2014 by Joseph Huckaby and PixlCore.com.  It is released under the MIT License (see below).

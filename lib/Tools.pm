@@ -25,10 +25,10 @@ use HTTP::Response;
 use Date::Parse;
 use URI::Escape;
 use Socket;
-use DBI;
 use MIME::Lite;
 use Data::Dumper;
 use UNIVERSAL qw(isa);
+use JSON;
 
 BEGIN
 {
@@ -36,7 +36,7 @@ BEGIN
     use vars qw(@ISA @EXPORT @EXPORT_OK);
 
     @ISA		= qw(Exporter);
-    @EXPORT		= qw(XMLalwaysarray load_file save_file get_hostname get_bytes_from_text get_text_from_bytes short_float commify pct pluralize alphanum ascii_table file_copy file_move generate_unique_id memory_substitute memory_lookup find_files ipv4_to_hostname hostname_to_ipv4 wget xml_to_javascript escape_js normalize_midnight yyyy_mm_dd mm_dd_yyyy yyyy get_nice_date follow_symlinks get_remote_ip get_user_agent strip_high merge_hashes xml_post parse_query compose_query parse_xml compose_xml decode_entities encode_entities encode_attrib_entities xpath_lookup db_query parse_cookies touch probably rand_array find_elem_idx dumper serialize_object deep_copy trim file_get_contents file_put_contents preg_match preg_replace make_dirs_for find_bin);
+    @EXPORT		= qw(XMLalwaysarray load_file save_file get_hostname get_bytes_from_text get_text_from_bytes short_float commify pct pluralize alphanum ascii_table file_copy file_move generate_unique_id memory_substitute memory_lookup find_files ipv4_to_hostname hostname_to_ipv4 wget xml_to_javascript escape_js normalize_midnight yyyy_mm_dd mm_dd_yyyy yyyy get_nice_date follow_symlinks get_remote_ip get_user_agent strip_high merge_hashes xml_post parse_query compose_query parse_xml compose_xml decode_entities encode_entities encode_attrib_entities xpath_lookup parse_cookies touch probably rand_array find_elem_idx dumper serialize_object deep_copy trim file_get_contents file_put_contents preg_match preg_replace make_dirs_for find_bin json_parse json_compose json_compose_pretty);
 	@EXPORT_OK	= qw();
 }
 
@@ -882,52 +882,6 @@ sub xpath_lookup {
 	return $parser->lookup( $path );
 }
 
-sub db_query {
-	##
-	# Connect to the database and execute DB query
-	##
-	my ($db_args, $sql, @execute_args) = @_;
-	
-	my $connect_string = "dbi:Pg:dbname=" . ($db_args->{'instance'} || $db_args->{'Instance'}) . ';host=' . ($db_args->{'host'} || $db_args->{'Host'});
-	my $rows = undef;
-	my $retries = 0;
-	my $last_error = undef;
-	
-	while ($retries >= 0) {
-		eval {
-			# $verbose && warn "\tConnecting to database: $connect_string\n";
-			my $dbh = DBI->connect(
-				$connect_string,
-				$db_args->{'username'} || $db_args->{'Username'},
-				$db_args->{'password'} || $db_args->{'Password'},
-				{ AutoCommit=>1, RaiseError=>0, PrintError=>1 }
-			);
-			
-			if (!$dbh) { die( "Could not connect to: $connect_string: " . $DBI::errstr ); }
-			
-			# $verbose && warn "\tExecuting SQL: " . sql_preview($sql, @execute_args) . "\n";
-			my $sth = $dbh->prepare($sql);
-			if (!$sth) { die( "Could not prepare sql: $sql: " . $DBI::errstr ); }
-	
-			my $result = $sth->execute( @execute_args );
-			if (!$result) { die( "Could not execute sql: $sql: " . $DBI::errstr ); }
-			
-			$rows = $sth->fetchall_arrayref({});
-		}; # eval
-		
-		if ($@) {
-			$last_error = $@;
-			$retries--;
-			next;
-		} # error
-		
-		last if $rows;
-	} # retry loop
-	
-	if (!$rows) { return $last_error; }
-	else { return $rows; }
-}
-
 sub parse_cookies {
 	##
 	# Parse HTTP cookies into hash table
@@ -1165,6 +1119,18 @@ sub find_bin {
 	}
 	
 	return '';
+}
+
+sub json_parse {
+	return decode_json( $_[0] );
+}
+
+sub json_compose {
+	return encode_json( $_[0] );
+}
+
+sub json_compose_pretty {
+	return to_json( $_[0], { pretty => 1, utf8 => 1 } );
 }
 
 1;
