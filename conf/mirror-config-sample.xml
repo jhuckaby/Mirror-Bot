@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<BotConfig>
+	<Common>
+		<owner>YOUR_NICK</owner>
+		<flood>1</flood>
+		<access>op</access>
+		<activator>!</activator>
+		<ignore>chanserv, vaughn, moobot, nightbot</ignore>
+	</Common>
+	<Left>
+		<mirror_name>MY_NETWORK_NAME</mirror_name>
+		<server>my.irc.network.com</server>
+		<port>6667</port>
+		<channel>#mychannel</channel>
+		<nick>TwitchChat</nick>
+		<password>YOUR_NICK_PASS</password>
+		<sync_topic>0</sync_topic>
+		<nick_decoration>&lt;&gt;</nick_decoration>
+		<prevent_dupes>1</prevent_dupes>
+	</Left>
+	<Right>
+		<mirror_name>Twitch</mirror_name>
+		<server>irc.twitch.tv</server>
+		<port>6667</port>
+		<channel>#YOUR_TWITCH_CHANNEL</channel>
+		<nick>YOUR_TWITCH_NICK</nick>
+		<server_password>oauth:YOUR_OAUTH_HASH</server_password>
+		<nick_decoration>[]</nick_decoration>
+		<throttle>1</throttle>
+		<queue_length>5</queue_length>
+		<prevent_dupes>1</prevent_dupes>
+	</Right>
+</BotConfig>

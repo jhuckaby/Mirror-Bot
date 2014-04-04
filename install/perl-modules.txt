@@ -1,0 +1,7 @@
+POE
+Bot::BasicBot
+JSON::XS
+LWP::UserAgent
+URI::Escape
+HTTP::Date
+Crypt::SSLeay
