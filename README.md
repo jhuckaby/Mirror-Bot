@@ -274,6 +274,14 @@ And to stop it:
 /etc/init.d/mirrorbotd stop
 ```
 
+## Log Archives
+
+MirrorBot will automatically archive (gzip) its log file every night at midnight.  You can find the log archives here:
+
+	/opt/mirrorbot/logs/archive/debug/YYYY/MM/DD.gz
+
+Replace `YYYY` with the desired year, `MM` with the month, and `DD` with the day.  You can use `gunzip` to decompress the file, making it a plain text file.
+
 ## Manual Installation
 
 If the single-command auto-install doesn't work on your server, you can manually install MirrorBot from source.  Before you install, please make sure you have the following dependencies:
