@@ -50,6 +50,14 @@ Use this command to have the bot repeat the specified text into the channel on t
 
 This command kicks the specified user out of the channel on the other side of the mirror.  Specify the nickname of the user after the command: `!kick some_bad_nick`.  Note that this command is only for standard IRC servers, not Twitch.  Twitch does not have a "kick" command.
 
+#### !pause
+
+This command pauses all message mirroring (both directions), while keeping the bot itself active.  You can use this if you get a spam flood, and want to pause mirroring while you deal with kicking / banning the spam bots.  Use the `!resume` command to start mirroring again.
+
+#### !resume
+
+This command resumes message mirroring if it was previously paused via the `!pause` command.
+
 #### !quit
 
 This command quits the bot (affects both sides of the mirror).  Aliases include: `exit`, `shutdown` and `die`.

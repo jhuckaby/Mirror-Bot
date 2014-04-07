@@ -249,6 +249,35 @@ sub bot_cmd {
 			#);
 		}
 	}
+	elsif ($text =~ /^(pause|stop)/) {
+		# pause mirroring
+		if (!$self->{paused}) {
+			$self->log_debug( "Pausing mirror" );
+			
+			$self->{paused} = 1;
+			if ($self->{mirror}) { $self->{mirror}->{paused} = 1; }
+			$self->{say_queue} = [];
+			
+			$self->say(
+				channel => nch( $self->{params}->{channel} ),
+				body => "Mirroring paused"
+			);
+		}
+	}
+	elsif ($text =~ /^(resume|start)/) {
+		# resume mirroring
+		if ($self->{paused}) {
+			$self->log_debug( "Resuming mirror" );
+			
+			$self->{paused} = 0;
+			if ($self->{mirror}) { $self->{mirror}->{paused} = 0; }
+			
+			$self->say(
+				channel => nch( $self->{params}->{channel} ),
+				body => "Mirroring resumed"
+			);
+		}
+	}
 	elsif ($text =~ /^\/(\w+)(.*)$/) {
 		# raw irc command
 		my $cmd = $1;
@@ -258,7 +287,7 @@ sub bot_cmd {
 		$self->log_debug( "Sending raw IRC command: $cmd: $cmd_args_raw" );
 		$self->irc_cmd( $cmd, @$cmd_args );
 	}
-	elsif (($text =~ /^eval\s+(.+)$/i) && $is_owner) {
+	elsif (($text =~ /^eval\s+(.+)$/i) && $is_owner && $self->{params}->{debug}) {
 		# owner command only: raw perl eval (VERY DANGEROUS, FOR DEBUGGING ONLY)
 		my $cmd = $1;
 		$self->log_debug( "Perl Eval: $cmd" );
@@ -382,7 +411,9 @@ sub mirror_say {
 	my $chan = nch( $self->{params}->{channel} );
 	my $text = trim($args->{raw_body});
 	
-	if ($self->{ignore}->{lc($who)}) { return undef; } # ignore 
+	if ($self->{ignore}->{lc($who)}) { return undef; } # ignore
+	if ($text !~ /\S/) { return undef; } # ignore whitespace messages
+	if ($self->{paused}) { return undef; } # ignore in paused mode
 	
 	$self->log_debug( "in mirror_said(): " . Dumper($args) );
 	
