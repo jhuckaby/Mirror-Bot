@@ -241,6 +241,14 @@ This param, when set to "1", prevents repeat messages from being posted on which
 	<prevent_dupes>1</prevent_dupes>
 ```
 
+#### mute
+
+When set to "1", the `mute` param causes one side of the mirror to be mute (i.e. silent, will not post messages to the other side).  This can be used to implement a one-way mirror, so messages are passed one way but not the other.  Example:
+
+```xml
+	<mute>1</mute>
+```
+
 ## Twitch Setup
 
 For connecting one side of MirrorBot to Twitch.TV's IRC system, please follow these instructions.  Note that Twitch has a very strange IRC setup that doesn't use a standard user password.  Instead, you have to generate an OAuth token and specify that as the *server password*.
