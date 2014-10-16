@@ -394,6 +394,9 @@ sub said {
 				# if private message, do not pass to mirror
 				if ($args->{channel} eq 'msg') { return undef; } # ignore
 				
+				# do not post to mirror if this side is muted
+				if ($self->{params}->{mute}) { return undef; } # ignore
+				
 				$self->{mirror}->mirror_say( $args );
 			} # mirror
 		}
