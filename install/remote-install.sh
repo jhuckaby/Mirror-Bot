@@ -7,7 +7,7 @@
 #
 # To install or upgrade, issue this command as root:
 #
-#	curl -s "http://pixlcore.com/software/mirrorbot/install-latest-_BRANCH_.txt" | bash
+#	curl -L -s "http://pixlcore.com/software/mirrorbot/install-latest-_BRANCH_.txt" | bash
 #
 # Or, if you don't have curl, you can use wget:
 #
@@ -58,7 +58,7 @@ fi
 mkdir -p /opt
 cd /opt
 if which curl >/dev/null 2>&1 ; then 
-	curl -O "http://pixlcore.com/software/mirrorbot/$SIMPLEBOT_TARBALL" || exit 1
+	curl -L -O "http://pixlcore.com/software/mirrorbot/$SIMPLEBOT_TARBALL" || exit 1
 else
 	wget "http://pixlcore.com/software/mirrorbot/$SIMPLEBOT_TARBALL" || exit 1
 fi
