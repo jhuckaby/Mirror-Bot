@@ -6,7 +6,7 @@
 
 To install MirrorBot, execute this command as root on your server:
 
-	curl -s "http://pixlcore.com/software/mirrorbot/install-latest-stable.txt" | bash
+	curl -L -s "http://pixlcore.com/software/mirrorbot/install-latest-stable.txt" | bash
 
 Or, if you don't have curl, you can use wget:
 
